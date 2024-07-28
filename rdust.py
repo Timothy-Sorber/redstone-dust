@@ -123,7 +123,7 @@ async def main():
     # Start the web server
     await run_web_server()
     # Start the bot
-    await client.start('YOUR_BOT_TOKEN')
+    await client.start(TOKEN)
 
 # Run the main function
 asyncio.run(main())
