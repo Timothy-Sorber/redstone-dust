@@ -2,6 +2,26 @@ import discord
 import random
 import os
 
+from aiohttp import web
+
+# Define a simple health check endpoint
+async def health_check(request):
+    print("Responding to health check.")
+    return web.Response(text="I am alive!")
+
+# Create an aiohttp web application
+app = web.Application()
+app.router.add_get("/", health_check)
+
+# Start the web server
+def run_web_server():
+    web.run_app(app, port=8000)
+
+# Run the web server in the background
+import threading
+web_server_thread = threading.Thread(target=run_web_server)
+web_server_thread.start()
+
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 TOKEN = os.environ.get('BOT_TOKEN')
