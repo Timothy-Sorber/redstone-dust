@@ -1,5 +1,4 @@
 import discord
-from discord.app_commands import CommandAlreadyRegistered
 import random
 
 intents = discord.Intents.all()
