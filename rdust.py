@@ -4,7 +4,7 @@ import os
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
-TOKEN = os.getenv('BOT_TOKEN')
+TOKEN = os.environ.get('BOT_TOKEN')
 
 reaction_roles = {}
 commands = {}
