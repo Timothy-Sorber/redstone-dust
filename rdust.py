@@ -3,24 +3,22 @@ import random
 import os
 
 from aiohttp import web
+import asyncio
 
 # Define a simple health check endpoint
 async def health_check(request):
-    print("Responding to health check.")
     return web.Response(text="I am alive!")
 
 # Create an aiohttp web application
 app = web.Application()
 app.router.add_get("/", health_check)
 
-# Start the web server
-def run_web_server():
-    web.run_app(app, port=8000)
-
-# Run the web server in the background
-import threading
-web_server_thread = threading.Thread(target=run_web_server)
-web_server_thread.start()
+# Function to run the web server
+async def run_web_server():
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 8000)
+    await site.start()
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -120,6 +118,14 @@ async def ball(msg, params):
 
 addCommand('8ball', ball)
 
-client.run(TOKEN)
+# Main function to run both the bot and web server
+async def main():
+    # Start the web server
+    await run_web_server()
+    # Start the bot
+    await client.run('YOUR_BOT_TOKEN')
+
+# Run the main function
+asyncio.run(main())
 
 # 1147910177685766310
