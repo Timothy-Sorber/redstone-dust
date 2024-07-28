@@ -1,9 +1,10 @@
 import discord
 import random
+import os
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
-TOKEN = 'MTExNjUxMTc4MzY5NjQ3NDEyMw.GG0lFw.cKcY4SgpUPJkav3f19Aiptmq9MOa7B8TXp8U9Q'
+TOKEN = os.getenv('BOT_TOKEN')
 
 reaction_roles = {}
 commands = {}
